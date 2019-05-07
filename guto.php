@@ -2,8 +2,8 @@
 
 
 //Public URLs
-$urlNegocie = 'https://broker.negociecoins.com.br/tradeapi/v1/';
-$urlTem = 'https://broker.tembtc.com.br/tradeapi/v1/';
+$urlNegocie = 'https://broker.negociecoins.com.br/api/v3';
+$urlTem = 'https://broker.tembtc.com.br/api/v3';
 
 
 $keyNegocie = "";
