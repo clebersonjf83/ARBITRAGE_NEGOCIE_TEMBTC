@@ -145,7 +145,7 @@ function getTickerTem()
 
 
 function amx_authorization_header($url1,$id, $key, $function, $method, $body) {
-	$url1 = $url1 . $function; //URL + FunÃ§Ã£o Ex: user/balance
+	$url1 = 'https://broker.negociecoins.com.br/tradeapi/v1/' . $function; //URL + FunÃ§Ã£o Ex: user/balance
 	date_default_timezone_set('America/Sao_Paulo'); //Setando Timezone para BR
 	$url = strtolower(urlencode($url1)); //Colocando a URL em Minusculo e fazendo o encode 
 	$content = empty($body) ? '' : base64_encode(md5($body, true)); //se body estÃ¡ vazio, deixa ''(nulo, senÃ£o usa o base64_encode()
