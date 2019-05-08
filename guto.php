@@ -2,7 +2,7 @@
 
 
 //Public URLs
-$urlNegocie = 'https://broker.negociecoins.com.br/api/v3';
+$urlNegocie = 'https://broker.negociecoins.com.br/tradeapi/v1/user/balance';
 $urlTem = 'https://broker.tembtc.com.br/api/v3';
 
 
