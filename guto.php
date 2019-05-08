@@ -144,19 +144,18 @@ function getTickerTem()
 }
 
 
-function amx_authorization_header($url1,$id, $key, $function, $method, $body) {
-	$url1 = 'https://broker.negociecoins.com.br/tradeapi/v1/' . $function; //URL + FunÃ§Ã£o Ex: user/balance
-	date_default_timezone_set('America/Sao_Paulo'); //Setando Timezone para BR
-	$url = strtolower(urlencode($url1)); //Colocando a URL em Minusculo e fazendo o encode 
-	$content = empty($body) ? '' : base64_encode(md5($body, true)); //se body estÃ¡ vazio, deixa ''(nulo, senÃ£o usa o base64_encode()
-	$time = time(); //Tempo 
-	$nonce = uniqid(); //Ã‰ gerado um nÃºmero randonico aleatÃ³rio, para compor o cabeÃ§alho AMX.
-	$data = implode('', [$id, strtoupper($method), $url, $time, $nonce, $content]); //String sem separaÃ§Ã£o com as variÃ¡veis que estÃ£o sendo mostradas
-	$secret = base64_decode($key); //decode no password vetor de byte
-	$signature = base64_encode(hash_hmac('sha256', $data, $secret, true)); //Encode na signature utilizando hash_hmac
-	return 'amx ' . implode(':', [$id, $signature, $nonce, $time]); //retorna a header
-}
-
+function amx_authorization_header($id, $key, $function, $method, $body) {
+$url1 = 'https:\\broker.negociecoins.com.br/tradeapi/v1/' . $function; //URL + Função Ex: user/balance
+date_default_timezone_set('America/Sao_Paulo'); //Setando Timezone para BR
+$url = strtolower(urlencode($url1)); //Colocando a URL em Minusculo e fazendo o encode
+$content = empty($body) ? '' : base64_encode(md5($body, true)); //se body está vazio, deixa ''(nulo, senão usa o base64_encode()
+$time = time(); //Tempo
+$nonce = uniqid(); //É gerado um número randonico aleatório, para compor o cabeçalho AMX.
+$data = implode('', [$id, strtoupper($method), $url, $time, $nonce, $content]); //String sem separação com as variáveis que estão sendo mostradas
+$secret = base64_decode($key); //decode no password vetor de byte
+$signature = base64_encode(hash_hmac('sha256', $data, $secret, true)); //Encode na signature utilizando hash_hmac
+return 'amx ' . implode(':', [$id, $signature, $nonce, $time]); //retorna a header
+} 
 function get($url, $id, $key, $function, $body = null) {
 	$method = 'GET';
 	$result = amx_authorization_header($url,$id, $key, $function, 'GET', $body = null);
