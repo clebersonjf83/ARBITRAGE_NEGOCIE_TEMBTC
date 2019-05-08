@@ -169,26 +169,27 @@ function post($url,$id, $key, $function, $body) {
 	return request($url,$result, $function, $method, $body);
 }
 
-function request($url, $header, $function, $method, $data) {
-	$url = $url . $function;
-
-	if ($method == 'GET' || $method == 'DELETE') {
-		$context = stream_context_create(array(
-			'http' => array(
-			'header' => "Authorization: " . $header,
-			)));
-		} else {
-		$context = stream_context_create(array(
-		'http' => array(
-		'method' => 'POST',
-		'header' => "Authorization: " . $header . "\r\n" . 'content-length: ' . strlen($data) . "\r\n" . "content-type: application/json; charset=UTF-8" . "\r\n",
-		'content' => $data,
-		)));
-	}
-
-	$result = file_get_contents($url, false, $context);
-	return $result;
+function request($header, $function, $method, $data) {
+$url = 'https://broker.negociecoins.com.br/tradeapi/v1/' . $function;
+if ($method == 'GET' || $method == 'DELETE') {
+$context = stream_context_create(array(
+'http' => array(
+'header' => "Authorization: " . $header,
+)));
+} else {
+$context = stream_context_create(array(
+'http' => array(
+'method' => 'POST',
+'header' => "Authorization: " . $header . "\r\n" . 
+'content-length: ' . strlen($data) . "\r\n" . "content-type: application/json; charset=UTF-8" . "\r\n",
+'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0',
+'content' => $data
+)));
 }
+$result = file_get_contents($url, false, $context);
+$res_json = json_decode($result, true);
+return $res_json;
+} 
 
 
 
